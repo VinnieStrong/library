@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 function Book(title, author, pages, readingStatus) {
     this.title = title;
     this.author = author;
@@ -5,17 +7,14 @@ function Book(title, author, pages, readingStatus) {
     this.readingStatus = readingStatus;
 }
 
-
-const myLibrary = [];
-
+function getBookInfos(book) {
+    return `${book.title} by ${book.author}, ${book.pages} pages, ${book.readingStatus}.`;
+}
 
 function createBook(title, author, pages, readingStatus) {
     const book = new Book(title, author, pages, readingStatus);
     crypto.randomUUID(book);
     myLibrary.push(book);
-}
-function getBookInfos(book) {
-    return book.title;
 }
 
 createBook('Thinking fast and Slow', 'David Kellermen', '350', 'read');
@@ -27,12 +26,17 @@ createBook('Mamma mia', 'Antonello cia cia', '99', 'not read');
 
 const hanger = document.getElementById("hanger");
 
-//Show entire books array
-for (let i=0; i<myLibrary.length; i++) {
+function showBooks() {
+    hanger.innerHTML = "";
+   //Show entire books array
+    for (let i=0; i<myLibrary.length; i++) {
     const para = document.createElement("p");
-hanger.appendChild(para);
-para.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}`;
+    hanger.appendChild(para);
+    para.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}`;
+    } 
 }
+showBooks();
+
 
 const dialog = document.querySelector("dialog");
 const addBookButton = document.getElementById("addBook");
@@ -41,6 +45,37 @@ const resetButton = document.getElementById("resetButton");
 addBookButton.addEventListener("click", () => {
     dialog.showModal();
 });
-resetButton.addEventListener("click", ()=> {
+resetButton.addEventListener("click", () => {
     dialog.close();
-})
+});
+
+const form = document.getElementById('book_form');
+
+
+
+form.addEventListener('submit', function(event) {
+
+    event.preventDefault();
+
+    let title = document.getElementById('title');
+    let author = document.getElementById('author');
+    let pages = document.getElementById('pages');
+    let readingStatus = document.querySelector('input[name="reading_status"]:checked').value;
+    
+
+    createBook(title.value, author.value, pages.value, readingStatus);
+    dialog.close();
+    title.value = '';
+    author.value = '';
+    pages.value = '';
+    readingStatus.value = '';
+
+    showBooks();
+
+
+});
+
+
+//const readingStatus
+
+

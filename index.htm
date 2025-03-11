@@ -10,7 +10,7 @@
     <h1>My Library</h1>
 
     <dialog>
-        <form action="post" id="form">
+        <form id="book_form">
             <p>Add book the the library</p>
             <label for="title">Title</label>
             <input type="text" id="title" name="title" required/>
@@ -21,14 +21,13 @@
             <label for="pages">Number of pages</label>
             <input type="number" id="pages" name="pages" required/>
             <br>
-            <label for="readingStatus">Did you read it?</label>
-            <select name="readingStatus">
-                <option value="read">read</option>
-                <option value="not_read">not read</option>
-
-            </select>
+            Did you read it?
+            <input type="radio" name="reading_status" value="read" checked>
+            <label for="read">Oh yes!</label>
+            <input type="radio" name="reading_status" value="not read">
+            <label for="not-read">Not yet</label>
             <br>
-            <button>Add</button><button type="reset" id="resetButton">Reset</button>
+            <button id="submitBook">Add</button><button type="reset" id="resetButton">Reset</button>
 
 
         </form>
