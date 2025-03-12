@@ -17,10 +17,17 @@ function createBook(title, author, pages, readingStatus) {
     myLibrary.push(book);
 }
 
+
 createBook('Thinking fast and Slow', 'David Kellermen', '350', 'read');
 createBook('How to win friends and influence', 'Dave Carniage', '150', 'read');
 createBook('Otello', 'Shekspier', '399', 'not read');
 createBook('Mamma mia', 'Antonello cia cia', '99', 'not read');
+
+function createButton() {
+    const button = document.createElement("button");
+    button.textContent = "remove book";
+    return button;
+}
 
 //DOM manipulation
 
@@ -31,11 +38,18 @@ function showBooks() {
    //Show entire books array
     for (let i=0; i<myLibrary.length; i++) {
     const para = document.createElement("p");
+    const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}`);
+    const removeButton = createButton();
+
     hanger.appendChild(para);
-    para.textContent = `${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}`;
+    para.appendChild(textNode);
+    para.appendChild(removeButton);
     } 
+
 }
 showBooks();
+
+
 
 
 const dialog = document.querySelector("dialog");
