@@ -33,20 +33,41 @@ function createButton() {
 
 const hanger = document.getElementById("hanger");
 
+const displayArray = function() {
+}
+
 function showBooks() {
     hanger.innerHTML = "";
-   //Show entire books array
-    for (let i=0; i<myLibrary.length; i++) {
-    const para = document.createElement("p");
-    const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}`);
-    const removeButton = createButton();
+    //Show entire books array
+     for (let i=0; i<myLibrary.length; i++) {
+         const para = document.createElement("p");
+         const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}s  `);
+         const removeButton = createButton();
+ 
+         hanger.appendChild(para);
+         para.appendChild(textNode);
+         para.appendChild(removeButton);
+ 
+         removeButton.addEventListener("click", () => {
+             myLibrary.splice(i, 1);
+         });
+     } 
+     hanger.innerHTML = "";
+     for (let i=0; i<myLibrary.length; i++) {
+         const para = document.createElement("p");
+         const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}s  `);
+         const removeButton = createButton();
+ 
+         hanger.appendChild(para);
+         para.appendChild(textNode);
+         para.appendChild(removeButton);
+ 
+         removeButton.addEventListener("click", () => {
+             myLibrary.splice(i, 1);
+         });
 
-    hanger.appendChild(para);
-    para.appendChild(textNode);
-    para.appendChild(removeButton);
-    } 
-
-}
+    }
+}    
 showBooks();
 
 
@@ -89,7 +110,16 @@ form.addEventListener('submit', function(event) {
 
 });
 
+const oldP = document.getElementById('textP');
+const newP = document.createElement('p');
+newP.textContent = "I am a n paragraph";
+oldP.appendChild(newP);
+newP.dataset.num = 1;
 
-//const readingStatus
-
-
+const newButton = document.createElement("button");
+const buttonText = document.createTextNode("I'm a button");
+newButton.appendChild(buttonText);
+newP.appendChild(newButton);
+newButton.addEventListener('click', () => {
+    buttonText.textContent = "I can change";
+});
