@@ -6,6 +6,11 @@ function Book(title, author, pages, readingStatus) {
     this.pages = pages;
     this.readingStatus = readingStatus;
 }
+Book.prototype.changeReadingStatus = function() {
+    if (this.readingStatus === "read") return this.readingStatus = "not read";
+    else return this.readingStatus = "read";
+
+} 
 
 function getBookInfos(book) {
     return `${book.title} by ${book.author}, ${book.pages} pages, ${book.readingStatus}.`;
@@ -23,9 +28,9 @@ createBook('How to win friends and influence', 'Dave Carniage', '150', 'read');
 createBook('Otello', 'Shekspier', '399', 'not read');
 createBook('Mamma mia', 'Antonello cia cia', '99', 'not read');
 
-function createButton() {
+function createButton(name) {
     const button = document.createElement("button");
-    button.textContent = "remove book";
+    button.textContent = name;
     return button;
 }
 
@@ -33,8 +38,7 @@ function createButton() {
 
 const hanger = document.getElementById("hanger");
 
-const displayArray = function() {
-}
+
 
 function showBooks() {
     hanger.innerHTML = "";
@@ -42,32 +46,26 @@ function showBooks() {
      for (let i=0; i<myLibrary.length; i++) {
          const para = document.createElement("p");
          const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}s  `);
-         const removeButton = createButton();
+         const removeButton = createButton('remove book');
+         const changeReadStatus = createButton('change read-status');
  
          hanger.appendChild(para);
          para.appendChild(textNode);
          para.appendChild(removeButton);
+         para.appendChild(changeReadStatus);
  
          removeButton.addEventListener("click", () => {
              myLibrary.splice(i, 1);
-         });
-     } 
-     hanger.innerHTML = "";
-     for (let i=0; i<myLibrary.length; i++) {
-         const para = document.createElement("p");
-         const textNode = document.createTextNode(`${myLibrary[i].title} by ${myLibrary[i].author}, ${myLibrary[i].pages} pages, ${myLibrary[i].readingStatus}s  `);
-         const removeButton = createButton();
- 
-         hanger.appendChild(para);
-         para.appendChild(textNode);
-         para.appendChild(removeButton);
- 
-         removeButton.addEventListener("click", () => {
-             myLibrary.splice(i, 1);
-         });
+             showBooks();
+        });
+        changeReadStatus.addEventListener("click", () => {
+            myLibrary[i].changeReadingStatus();
+            showBooks();
+
+        });
 
     }
-}    
+}
 showBooks();
 
 
@@ -108,18 +106,4 @@ form.addEventListener('submit', function(event) {
     showBooks();
 
 
-});
-
-const oldP = document.getElementById('textP');
-const newP = document.createElement('p');
-newP.textContent = "I am a n paragraph";
-oldP.appendChild(newP);
-newP.dataset.num = 1;
-
-const newButton = document.createElement("button");
-const buttonText = document.createTextNode("I'm a button");
-newButton.appendChild(buttonText);
-newP.appendChild(newButton);
-newButton.addEventListener('click', () => {
-    buttonText.textContent = "I can change";
 });
